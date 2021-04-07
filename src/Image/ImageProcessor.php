@@ -19,7 +19,6 @@ use Psr\Log\LoggerInterface;
 
 class ImageProcessor implements \Psr\Log\LoggerAwareInterface
 {
-
 	/**
 	 * @var \Mpdf\Mpdf
 	 */
@@ -608,6 +607,15 @@ class ImageProcessor implements \Psr\Log\LoggerAwareInterface
 								$trns[0] = $this->translateValue(substr($t, 0, 2), $bpc);
 								$trns[1] = $this->translateValue(substr($t, 2, 2), $bpc);
 								$trns[2] = $this->translateValue(substr($t, 4, 2), $bpc);
+							}
+							
+							// Image file size less than 8kb
+							if (!isset($trns[1])) {
+								$trns[1] = 0;
+							}
+							
+							if (!isset($trns[2])) {
+								$trns[2] = 0;
 							}
 
 							// generate alpha channel
